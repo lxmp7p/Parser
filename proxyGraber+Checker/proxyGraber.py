@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 import requests
+from proxyChecker import check_proxy
 
 
 proxy_type = input("Выберите необходимый тип прокси: \n 1)HTTP \n 2)HTTPS \n 3)SOCKS4 \n 4)SOCKS5 \nВаш выбор: ")
@@ -29,5 +30,9 @@ for i in line:
         c = 0
 
 for i in proxy:
-    if (i.get(2) == proxy_type):
-        print(i.get(1))
+    try:
+        if (i.get(2) == proxy_type):
+            check_proxy(i.get(2),i.get(1))
+    except Exception as e:
+        raise e
+
